@@ -1,5 +1,6 @@
 from typing import Any
-
+import logging
+logging.basicConfig(level=logging.DEBUG)
 import requests
 import urllib3
 from logzero import logger
@@ -46,6 +47,7 @@ def run_http_activity(
         a = requests.adapters.HTTPAdapter(max_retries=max_retries)
         s.mount("http://", a)
         s.mount("https://", a)
+        logger.debug(f"parameters: {arguments}")
         if method == "GET":
             r = s.get(
                 url,
